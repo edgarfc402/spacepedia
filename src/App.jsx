@@ -1,21 +1,21 @@
-import {BrowserRoutes, Routes, Route} from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./layout/Layout";
 import Home from "./pages/Home";
 import Planets from "./pages/Planets";
 import Apod from "./pages/Apod";
-import Faborites from "./pages/Favorites";
+import Favorites from "./pages/Favorites";
 
-export default function App(){
+export default function App() {
   return (
-    <BrowserRoutes>
-      <div style={{padding: 24, fontFamily:"system-ui"}}>
-        <h1>SpacePedia</h1>
+    <BrowserRouter>
+      <Layout>
         <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/planets" element={<Planets />}/>
-          <Route path="/apod" element={<Apod />}/>
-          <Route path="/favorites" element={<Faborites/>}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/planets" element={<Planets />} />
+          <Route path="/apod" element={<Apod />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
-      </div>
-    </BrowserRoutes>
+      </Layout>
+    </BrowserRouter>
   );
 }
