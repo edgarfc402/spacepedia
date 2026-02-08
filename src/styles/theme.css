@@ -1,15 +1,19 @@
+/* Colores y variables globales del proyecto */
 :root{
-  --bg: #070A12;
-  --panel: #0B1020;
-  --text: #EAF0FF;
-  --muted: #9FB0D0;
-  --border: rgba(255,255,255,0.08);
-  --max: 1100px;
+  --bg: #070A12;           /* fondo principal */
+  --panel: #0B1020;        /* color de navbar y footer */
+  --text: #EAF0FF;         /* texto principal */
+  --muted: #9FB0D0;        /* texto secundario */
+  --border: rgba(255,255,255,0.08); /* líneas sutiles */
+  --max: 1100px;           /* ancho máximo de la página */
 }
 
+/* Estilos base del cuerpo */
 body{
-  background: var(--bg);
-  color: var(--text);
+  background: var(--bg);   /* aplica fondo oscuro */
+  color: var(--text);      /* aplica color de texto */
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
 }
+
+/* Para que los enlaces hereden el color */
 a{ color: inherit; }

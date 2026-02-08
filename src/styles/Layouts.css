@@ -1,43 +1,51 @@
+/* Contenedor principal de todas las páginas */
 .container{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 24px;
+  max-width: var(--max);   /* no se hace gigante */
+  margin: 0 auto;          /* centra el contenido */
+  padding: 24px;           /* espacio interno */
 }
 
+/* Barra de navegación fija arriba */
 .nav{
-  position: sticky;
+  position: sticky;        /* se queda arriba al scrollear */
   top: 0;
   background: var(--panel);
   border-bottom: 1px solid var(--border);
 }
 
+/* Contenido interno de la navbar */
 .nav__inner{
   max-width: var(--max);
   margin: 0 auto;
   padding: 14px 24px;
   display: flex;
   gap: 14px;
-  align-items: center;
-  justify-content: space-between;
+  align-items: center;     /* centra verticalmente */
+  justify-content: space-between; /* logo a la izquierda, links a la derecha */
 }
 
+/* Grupo de links */
 .nav__links{
   display: flex;
   gap: 14px;
-  flex-wrap: wrap;
+  flex-wrap: wrap;         /* si no cabe, baja de línea */
 }
 
+/* Estilo base de cada link */
 .link{
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 10px;
-  color: var(--muted);
+  text-decoration: none;   /* quita subrayado */
+  padding: 8px 10px;       /* espacio interno */
+  border-radius: 10px;     /* esquinas redondeadas */
+  color: var(--muted);     /* color tenue */
 }
+
+/* Efecto hover (cuando pasas el mouse) */
 .link:hover{
   background: rgba(255,255,255,0.06);
   color: var(--text);
 }
 
+/* Footer */
 .footer{
   background: var(--panel);
   border-top: 1px solid var(--border);
@@ -45,3 +53,55 @@
   color: var(--muted);
   text-align: center;
 }
+
+/* Sección principal del Home (título + texto) */
+.hero{
+  padding: 18px 0 10px;
+}
+.hero__title{
+  font-size: 34px;
+  margin: 0 0 8px;
+}
+.hero__subtitle{
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Grid de tarjetas (responsive) */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+/* En pantallas chicas, baja a 1 columna */
+@media (max-width: 850px){
+  .grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjeta */
+.card{
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+/* Título dentro de la tarjeta */
+.card__title{
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+/* Descripción dentro de la tarjeta */
+.card__desc{
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+
