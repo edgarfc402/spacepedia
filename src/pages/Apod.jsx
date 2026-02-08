@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getApod } from "../services/nasa";
+import { addFavorite, removeFavorite, isFavorite } from "../services/favorites";
 
 export default function Apod() {
   // Guarda el resultado de la API
@@ -11,15 +12,21 @@ export default function Apod() {
   // Estado de error
   const [error, setError] = useState("");
 
+  // Estado para favoritos
+  const [fav, setFav] = useState(false);
+
   useEffect(() => {
-    // Función async interna para poder usar await
     async function load() {
       try {
         setLoading(true);
         setError("");
 
-        const data = await getApod(); // pide a NASA
-        setApod(data);                // guarda respuesta
+        const data = await getApod(); // pedir datos a NASA
+        setApod(data);
+
+        // Ver si ya estaba en favoritos
+        const id = `apod-${data.date}`;
+        setFav(isFavorite(id));
       } catch (e) {
         setError("Error al cargar APOD. Intenta de nuevo.");
       } finally {
@@ -30,39 +37,57 @@ export default function Apod() {
     load();
   }, []);
 
-  // Si está cargando, mostramos texto simple
-  if (loading) return <p>Cargando APOD...</p>;
+  function toggleFavorite() {
+    if (!apod) return;
 
-  // Si hay error, lo mostramos
+    const id = `apod-${apod.date}`;
+
+    if (fav) {
+      removeFavorite(id);
+      setFav(false);
+    } else {
+      addFavorite({
+        id,
+        type: "apod",
+        name: apod.title,
+        url: apod.url,
+        date: apod.date,
+      });
+      setFav(true);
+    }
+  }
+
+  if (loading) return <p>Cargando APOD...</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <div>
       <h2>Foto Astronómica del Día (NASA)</h2>
 
-      {/* Título que viene de NASA */}
       <h3>{apod?.title}</h3>
 
-      {/* Si es imagen, mostramos imagen */}
+      <button onClick={toggleFavorite} style={{ marginBottom: 12 }}>
+        {fav ? "Quitar de favoritos" : "Guardar en favoritos"}
+      </button>
+
       {apod?.media_type === "image" && (
         <img
-          src={apod?.url}
-          alt={apod?.title}
+          src={apod.url}
+          alt={apod.title}
           style={{ width: "100%", maxWidth: 900, borderRadius: 16 }}
         />
       )}
 
-      {/* Si es video (a veces APOD es YouTube), mostramos link */}
       {apod?.media_type === "video" && (
-        <a href={apod?.url} target="_blank" rel="noreferrer">
-          Ver video
+        <a href={apod.url} target="_blank" rel="noreferrer">
+          Ver video en YouTube →
         </a>
       )}
 
-      {/* Explicación */}
       <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
         {apod?.explanation}
       </p>
     </div>
   );
 }
+
