@@ -104,4 +104,10 @@
   line-height: 1.6;
 }
 
+/* Link activo (ruta actual) */
+.link.active{
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
 

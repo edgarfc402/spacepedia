@@ -5,7 +5,7 @@ import Planets from "./pages/Planets";
 import Apod from "./pages/Apod";
 import Favorites from "./pages/Favorites";
 import PlanetDetail from "./pages/PlanetDetail";
-
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -17,6 +17,7 @@ export default function App() {
           <Route path="/apod" element={<Apod />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/planets/:id" element={<PlanetDetail />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </BrowserRouter>
