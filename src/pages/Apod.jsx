@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getApod } from "../services/nasa";
 import { addFavorite, removeFavorite, isFavorite } from "../services/favorites";
+import Button from "../components/Button";
 
 export default function Apod() {
-  // Guarda el resultado de la API
+  // Guarda el resultado de la API de NASA
   const [apod, setApod] = useState(null);
 
   // Estado de carga
@@ -12,7 +13,7 @@ export default function Apod() {
   // Estado de error
   const [error, setError] = useState("");
 
-  // Estado para favoritos
+  // Estado para saber si está en favoritos
   const [fav, setFav] = useState(false);
 
   useEffect(() => {
@@ -21,10 +22,10 @@ export default function Apod() {
         setLoading(true);
         setError("");
 
-        const data = await getApod(); // pedir datos a NASA
+        const data = await getApod(); // Trae datos desde NASA
         setApod(data);
 
-        // Ver si ya estaba en favoritos
+        // Verificar si ya estaba en favoritos
         const id = `apod-${data.date}`;
         setFav(isFavorite(id));
       } catch (e) {
@@ -66,9 +67,9 @@ export default function Apod() {
 
       <h3>{apod?.title}</h3>
 
-      <button onClick={toggleFavorite} style={{ marginBottom: 12 }}>
+      <Button onClick={toggleFavorite} style={{ marginBottom: 12 }}>
         {fav ? "Quitar de favoritos" : "Guardar en favoritos"}
-      </button>
+      </Button>
 
       {apod?.media_type === "image" && (
         <img
@@ -90,4 +91,5 @@ export default function Apod() {
     </div>
   );
 }
+
 

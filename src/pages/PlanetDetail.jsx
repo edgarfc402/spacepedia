@@ -2,14 +2,18 @@ import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { planets } from "../data/planets";
 import { addFavorite, removeFavorite, isFavorite } from "../services/favorites";
+import Button from "../components/Button";
 
 export default function PlanetDetail() {
   const { id } = useParams();
 
-  // Busca el planeta por id
-  const planet = useMemo(() => planets.find((p) => p.id === id), [id]);
+  // Busca el planeta solo cuando cambia el id
+  const planet = useMemo(
+    () => planets.find((p) => p.id === id),
+    [id]
+  );
 
-  // Estado para refrescar el botón
+  // Estado para saber si está en favoritos
   const [fav, setFav] = useState(() => isFavorite(id));
 
   if (!planet) return <p>Planeta no encontrado.</p>;
@@ -19,7 +23,11 @@ export default function PlanetDetail() {
       removeFavorite(planet.id);
       setFav(false);
     } else {
-      addFavorite({ id: planet.id, type: "planet", name: planet.name });
+      addFavorite({
+        id: planet.id,
+        type: "planet",
+        name: planet.name,
+      });
       setFav(true);
     }
   }
@@ -28,13 +36,15 @@ export default function PlanetDetail() {
     <div>
       <h2>{planet.name}</h2>
       <p>{planet.description}</p>
-      <p><strong>Distancia al Sol:</strong> {planet.distance}</p>
+      <p>
+        <strong>Distancia al Sol:</strong> {planet.distance}
+      </p>
 
-      {/* Botón para guardar/quitar */}
-      <button onClick={toggleFavorite} style={{ marginTop: 12 }}>
+      <Button onClick={toggleFavorite} style={{ marginTop: 12 }}>
         {fav ? "Quitar de favoritos" : "Guardar en favoritos"}
-      </button>
+      </Button>
     </div>
   );
 }
+
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getFavorites, removeFavorite } from "../services/favorites";
+import Button from "../components/Button";
 
 export default function Favorites() {
   // Lista de favoritos que vienen de localStorage
@@ -20,7 +21,7 @@ export default function Favorites() {
     <div>
       <h2>Favoritos</h2>
 
-      {/* Si no hay favoritos */}
+      {/* Mensaje cuando no hay favoritos */}
       {items.length === 0 && <p>No tienes favoritos todavía.</p>}
 
       {/* Grid de tarjetas */}
@@ -31,23 +32,35 @@ export default function Favorites() {
             <h3>{item.name}</h3>
 
             {/* Tipo de favorito (planet o apod) */}
-            <p style={{ color: "var(--muted)" }}>Tipo: {item.type}</p>
+            <p style={{ color: "var(--muted)" }}>
+              Tipo: {item.type}
+            </p>
 
             {/* Si es APOD, muestra link para ver la imagen/video */}
             {item.type === "apod" && item.url && (
-              <a href={item.url} target="_blank" rel="noreferrer">
+              <a 
+                href={item.url} 
+                target="_blank" 
+                rel="noreferrer"
+                style={{ display: "block", marginBottom: 8 }}
+              >
                 Ver APOD →
               </a>
             )}
 
             {/* Botón para eliminar */}
-            <button onClick={() => onRemove(item.id)} style={{ marginTop: 12 }}>
+            <Button 
+              variant="secondary" 
+              onClick={() => onRemove(item.id)} 
+              style={{ marginTop: 12 }}
+            >
               Eliminar
-            </button>
+            </Button>
           </article>
         ))}
       </section>
     </div>
   );
 }
+
 

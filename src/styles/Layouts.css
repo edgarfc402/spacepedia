@@ -110,4 +110,31 @@
   color: var(--text);
 }
 
+/* BOTÓN BASE */
+.btn{
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Botón principal */
+.btn--primary{
+  background: #3b82f6;
+  color: white;
+}
+
+/* Hover */
+.btn--primary:hover{
+  background: #2563eb;
+}
+
+/* Botón secundario */
+.btn--secondary{
+  background: rgba(255,255,255,0.05);
+  color: white;
+  border: 1px solid var(--border);
+}
+
 
